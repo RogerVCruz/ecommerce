@@ -27,13 +27,14 @@ export class ProdutoController implements ProdutoRepository {
     console.log("Produto foi cadastrado com sucesso!");
   }
 
-  atualizar(produto: Produto): void {
-    let buscaProduto = this.buscarNoArray(produto.id);
+  atualizar(id: number, preco: number): void {
+    let buscaProduto = this.buscarNoArray(id);
 
     if (buscaProduto) {
+      buscaProduto.preco = preco;
       let index = this.listaProdutos.indexOf(buscaProduto);
 
-      this.listaProdutos[index] = produto;
+      this.listaProdutos[index] = buscaProduto;
       console.log("Produto atualizada com sucesso!");
     } else {
       console.log("\nA Produto não foi encontrado!");
@@ -54,7 +55,9 @@ export class ProdutoController implements ProdutoRepository {
   }
 
   procurarPorNome(nome: string): void {
-    let buscaPorNome = this.listaProdutos.filter((c) => c.nome.includes(nome));
+    let buscaPorNome = this.listaProdutos.filter((c) =>
+      c.nome.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+    );
 
     if (buscaPorNome) {
       buscaPorNome.forEach((produto) => produto.visualizar());
@@ -62,9 +65,10 @@ export class ProdutoController implements ProdutoRepository {
       console.log("Produto não encontrado!");
     }
   }
+
   procurarPorMarca(marca: string): void {
     let buscaPorMarca = this.listaProdutos.filter((c) =>
-      c.marca.includes(marca)
+      c.marca.toLocaleLowerCase().includes(marca.toLocaleLowerCase())
     );
 
     if (buscaPorMarca) {
