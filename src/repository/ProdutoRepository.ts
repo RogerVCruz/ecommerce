@@ -7,5 +7,6 @@ export interface ProdutoRepository {
   cadastrar(produto: Produto): void;
   atualizar(produto: Produto): void;
   deletar(numero: number): void;
-  procurarPorNome(titular: string): void;
+  procurarPorNome(nome: string): void;
+  procurarPorMarca(marca: string): void;
 }
